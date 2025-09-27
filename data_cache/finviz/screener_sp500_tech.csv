@@ -1,0 +1,21 @@
+Ticker,Company,Sector,Industry,Country,Market Cap,P/E,Price,Change,Volume
+AAPL,Apple Inc,Technology,Consumer Electronics,USA,3791130000000.0,38.83,255.46,-0.0055000000000000005,45563865.0
+ACN,Accenture plc,Technology,Information Technology Services,Ireland,148840000000.0,19.66,238.97,0.0276,8098949.0
+ADBE,Adobe Inc,Technology,Software - Application,USA,150850000000.0,22.45,360.37,0.0175,3064507.0
+ADI,Analog Devices Inc,Technology,Semiconductors,USA,121790000000.0,62.98,247.56,0.0001,2648401.0
+ADP,Automatic Data Processing Inc,Technology,Software - Application,USA,118090000000.0,29.2,291.54,0.0092,1664064.0
+ADSK,Autodesk Inc,Technology,Software - Application,USA,68770000000.0,66.94,322.88,0.0085,850768.0
+AKAM,Akamai Technologies Inc,Technology,Software - Infrastructure,USA,10900000000.0,26.96,76.05,0.0089,1609953.0
+AMAT,Applied Materials Inc,Technology,Semiconductor Equipment & Materials,USA,162450000000.0,24.31,203.92,0.0216,7357212.0
+AMD,Advanced Micro Devices Inc,Technology,Semiconductors,USA,258779999999.99997,91.79,159.46,-0.011200000000000002,30241951.0
+ANET,Arista Networks Inc,Technology,Computer Hardware,USA,179100000000.0,56.04,142.5,-0.0039000000000000003,4861534.0
+APH,Amphenol Corp,Technology,Electronic Components,USA,149680000000.0,48.91,122.6,0.0022,6212422.0
+AVGO,Broadcom Inc,Technology,Semiconductors,USA,1579770000000.0,85.47,334.53,-0.004699999999999999,15446039.0
+BR,"Broadridge Financial Solutions, Inc",Technology,Information Technology Services,USA,27640000000.0,33.27,236.0,0.0048,603129.0
+CDNS,"Cadence Design Systems, Inc",Technology,Software - Application,USA,95400000000.0,94.73,350.11,-0.0027,1299169.0
+CDW,CDW Corp,Technology,Information Technology Services,USA,21540000000.0,20.43,164.37,0.0471,1497021.0
+CPAY,Corpay Inc,Technology,Software - Infrastructure,USA,20950000000.0,20.16,296.7,0.0155,437082.0
+CRM,Salesforce Inc,Technology,Software - Application,USA,231750000000.0,35.35,243.43,0.0103,4968231.0
+CRWD,Crowdstrike Holdings Inc,Technology,Software - Infrastructure,USA,120810000000.0,,481.42,0.0176,2355319.0
+CSCO,"Cisco Systems, Inc",Technology,Communication Equipment,USA,265730000000.00003,25.74,67.22,-0.009300000000000001,15074794.0
+CTSH,Cognizant Technology Solutions Corp,Technology,Information Technology Services,USA,32710000000.0,13.6,66.98,0.0046,3177469.0
