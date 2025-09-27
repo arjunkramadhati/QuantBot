@@ -1,0 +1,19 @@
+__pycache__/
+*.pyc
+.dsym/
+*.log
+.env
+.venv
+
+# Qlib data and artifacts
+qlib_data/
+qlib/analysis_charts/
+qlib/mlruns/
+qlib/Users/
+
+# Streamlit and MLflow caches
+.streamlit/
+mlruns/
+
+# Jupyter
+.ipynb_checkpoints/
