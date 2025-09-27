@@ -6,6 +6,8 @@ A research playground for building quantitative trading strategies on top of [Mi
 - A Streamlit dashboard (`dashboard/app.py`) to explore MLflow backtests visually.
 - Setup scripts and instructions to recreate the environment, download sample data, and validate the pipeline.
 
+![QuantBot Research Dashboard](docs/QuantBot%20Research%20Dashboard.png)
+
 ---
 
 ## 1. Prerequisites
@@ -99,7 +101,7 @@ if ! grep -q "QLIB_DATA" ~/.zshrc; then
 fi
 
 # CN daily bundle
-the python qlib/scripts/get_data.py qlib_data --name qlib_data --region cn --interval 1d \
+python qlib/scripts/get_data.py qlib_data --name qlib_data --region cn --interval 1d \
   --target_dir "$QLIB_DATA/cn_data" --delete_old False
 
 # US daily bundle (optional)
