@@ -1,3 +1,6 @@
+import os
+os.environ.setdefault("SETUPTOOLS_SCM_PRETEND_VERSION_FOR_PYQLIB", "0.0")
+
 import pickle
 from pathlib import Path
 from typing import Dict, Optional
@@ -46,15 +49,19 @@ def list_runs(_client: mlflow.tracking.MlflowClient, experiment_id: str) -> pd.D
 
 
 def get_run_artifact_path(tracking_dir: Path, experiment_id: str, run_id: str, relative_path: str) -> Path:
-    run_dir = tracking_dir / experiment_id / run_id / "artifacts"
+    run_dir = tracking_dir / str(experiment_id) / run_id / "artifacts"
     return run_dir / relative_path
 
 
 def load_pickle(path: Path) -> Optional[object]:
     if not path.exists():
         return None
-    with path.open("rb") as fp:
-        return pickle.load(fp)
+    try:
+        with path.open("rb") as fp:
+            return pickle.load(fp)
+    except Exception as err:
+        st.warning(f"Failed to load {path.name}: {err}")
+        return None
 
 
 def render_cumulative_chart(report_df: pd.DataFrame):
@@ -105,8 +112,9 @@ def render_cost_chart(report_df: pd.DataFrame):
 
 def render_turnover_chart(indicator):
     turnover_series = None
-    if getattr(indicator, "trade_indicator", None):
-        turnover_series = indicator.trade_indicator.get("turnover")
+    trade_indicator = getattr(indicator, "trade_indicator", None)
+    if trade_indicator is not None:
+        turnover_series = trade_indicator.get("turnover")
     if turnover_series is None:
         st.info("No turnover data available for this run.")
         return
@@ -123,7 +131,6 @@ def render_turnover_chart(indicator):
 
 
 def render_run_details(tracking_dir: Path, experiment_id: str, run_id: str):
-    experiment_id = str(experiment_id)
     report_path = get_run_artifact_path(tracking_dir, experiment_id, run_id, "portfolio_analysis/report_normal_1day.pkl")
     summary_path = get_run_artifact_path(tracking_dir, experiment_id, run_id, "portfolio_analysis/port_analysis_1day.pkl")
     indicator_path = get_run_artifact_path(tracking_dir, experiment_id, run_id, "portfolio_analysis/indicators_normal_1day_obj.pkl")
@@ -205,7 +212,7 @@ def main():
 
     selected_run = runs_df[runs_df["run_id"] == run_id].iloc[0]
     st.sidebar.markdown("**Run details**")
-    st.sidebar.write(selected_run[["start_time", "end_time", "status"]])
+    st.sidebar.dataframe(selected_run[["start_time", "end_time", "status"]].to_frame().T)
 
     render_run_details(tracking_dir, experiment_id, run_id)
 
