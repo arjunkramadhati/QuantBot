@@ -1,6 +1,9 @@
 import os
-os.environ.setdefault("SETUPTOOLS_SCM_PRETEND_VERSION_FOR_PYQLIB", "0.0")
-
+os.environ["SETUPTOOLS_SCM_PRETEND_VERSION_FOR_PYQLIB"] = os.environ.get(
+    "SETUPTOOLS_SCM_PRETEND_VERSION_FOR_PYQLIB", "0.0"
+)
+os.environ.setdefault("SETUPTOOLS_SCM_PRETEND_VERSION", "0.0")
+import importlib
 import pickle
 from pathlib import Path
 from typing import Dict, Optional
@@ -13,6 +16,24 @@ import streamlit as st
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 DEFAULT_MLRUNS_DIR = BASE_DIR / "qlib" / "mlruns"
+
+_QLIB_READY: Optional[bool] = None
+
+
+def ensure_qlib_ready() -> bool:
+    global _QLIB_READY
+    if _QLIB_READY:
+        return True
+    try:
+        qlib_module = importlib.import_module("qlib")
+        if not hasattr(qlib_module, "__version__"):
+            qlib_module.__version__ = "0.0"
+        _QLIB_READY = True
+        return True
+    except Exception as err:
+        st.warning(f"Unable to import qlib for artifact deserialization: {err}")
+        _QLIB_READY = False
+        return False
 
 
 @st.cache_resource(show_spinner=False)
@@ -53,8 +74,10 @@ def get_run_artifact_path(tracking_dir: Path, experiment_id: str, run_id: str, r
     return run_dir / relative_path
 
 
-def load_pickle(path: Path) -> Optional[object]:
+def load_pickle(path: Path, *, require_qlib: bool = False) -> Optional[object]:
     if not path.exists():
+        return None
+    if require_qlib and not ensure_qlib_ready():
         return None
     try:
         with path.open("rb") as fp:
@@ -137,7 +160,7 @@ def render_run_details(tracking_dir: Path, experiment_id: str, run_id: str):
 
     report_df = load_pickle(report_path)
     summary_df = load_pickle(summary_path)
-    indicator_obj = load_pickle(indicator_path)
+    indicator_obj = load_pickle(indicator_path, require_qlib=True)
 
     if report_df is None:
         st.warning("report_normal_1day.pkl not found for this run.")
